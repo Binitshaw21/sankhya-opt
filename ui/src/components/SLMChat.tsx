@@ -1,10 +1,23 @@
 import { useState } from 'react';
 import { MessageSquare, Cpu, CheckCircle } from 'lucide-react';
 
+type SolverResult = {
+  nlp_extraction: {
+    max_sulfur_pool: number;
+    min_octane_target: number;
+    max_reforming_capacity: number;
+  };
+  solver_metrics: {
+    solve_time_ms: number;
+    total_inner_iterations: number;
+    optimal_objective: number;
+  };
+};
+
 export default function SLMChat() {
   const [prompt, setPrompt] = useState("Maximize refinery throughput. Keep sulfur below 18.5 and octane above 46000.");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<SolverResult | null>(null);
 
   const handleTranslateAndSolve = async () => {
     setLoading(true);

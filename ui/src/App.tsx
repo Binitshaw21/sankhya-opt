@@ -17,6 +17,12 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
+type TranslationResult = {
+  objective: string;
+  constraints: string[];
+  status: string;
+};
+
 // ============================================================================
 // SANKHYA-OPT | 5-TAB COMMAND CENTER (GRAND FINALE)
 // ============================================================================
@@ -28,7 +34,7 @@ export default function App() {
 
   // Tab 1: SLM & SCADA
   const [slmPrompt, setSlmPrompt] = useState("Maximize diesel yield while keeping sulfur below 0.5%");
-  const [translation, setTranslation] = useState<any>(null);
+  const [translation, setTranslation] = useState<TranslationResult | null>(null);
   const [isTranslating, setIsTranslating] = useState(false);
   const [tankLevel, setTankLevel] = useState(84.5);
   const [pipelinePressure, setPipelinePressure] = useState(124.2);
