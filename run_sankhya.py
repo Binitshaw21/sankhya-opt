@@ -1,6 +1,6 @@
 """
 run_sankhya.py
-Unified Command-Line Execution Engine for Project SANKHYA-OPT (SIH26119)
+Unified Command-Line Execution Engine for Project SANKHYA-OPT
 Demonstrates SLM Translation, MPIR execution, and GNN Branch-and-Bound.
 """
 import sys
@@ -21,7 +21,7 @@ console = Console()
 def run_sota_pipeline():
     console.print(Panel.fit(
         "[bold cyan]PROJECT SANKHYA-OPT: SOVEREIGN GPU-ACCELERATED OPTIMIZATION SOLVER[/bold cyan]\n"
-        "[bold white]SIH26119 | Mangalore Refinery and Petrochemicals Limited (MRPL)[/bold white]",
+        "[bold white]Mangalore Refinery and Petrochemicals Limited (MRPL)[/bold white]",
         border_style="cyan"
     ))
 

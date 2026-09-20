@@ -53,7 +53,8 @@ The solver uses CUDA when an available PyTorch CUDA device is detected and other
 
 From the repository root:
 
-```powershell
+```bash
+source .venv/bin/activate
 uvicorn api.gateway:app --reload
 ```
 
@@ -65,20 +66,17 @@ POST http://127.0.0.1:8000/api/slm/translate-and-solve
 
 Example request:
 
-```powershell
-Invoke-RestMethod `
-  -Uri http://127.0.0.1:8000/api/slm/translate-and-solve `
-  -Method Post `
-  -ContentType 'application/json' `
-  -Body '{"prompt":"Keep sulfur below 18.5 and octane above 46000"}'
+```bash
+curl -X POST http://127.0.0.1:8000/api/slm/translate-and-solve \
+  -H 'Content-Type: application/json' \
+  -d '{"prompt":"Keep sulfur below 18.5 and octane above 46000"}'
 ```
 
 ### 3. Start the UI
 
-```powershell
-Push-Location ui
+```bash
 npm install
-npm run dev
+npm run dev:frontend
 ```
 
 Open the Vite URL shown in the terminal, usually `http://localhost:5173`.
@@ -91,12 +89,10 @@ npm run build
 
 ## Tests and checks
 
-```powershell
-pytest
-Push-Location ui
+```bash
+npm test
 npm run lint
 npm run build
-Pop-Location
 ```
 
 ## Repository layout
