@@ -139,6 +139,22 @@
   .panel {
     @apply rounded-md border border-line bg-canvas shadow-panel;
   }
+
+    .landing-hero-section {
+      position: relative;
+    }
+
+    .landing-hero-section::before {
+      position: absolute;
+      inset: 0 1.5rem;
+      z-index: -1;
+      background-image: linear-gradient(rgb(var(--line) / 0.26) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(var(--line) / 0.26) 1px, transparent 1px);
+      background-size: 32px 32px;
+      content: '';
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 76%, transparent);
+      pointer-events: none;
+    }
 }
 
 /* Landing-only hover and idle motion. Console panels stay static. */
@@ -210,6 +226,15 @@
   transform: scale(1.02);
 }
 
+.landing-hero {
+  transition: box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.landing-hero:hover {
+  border-color: rgb(var(--brand) / 0.34);
+  box-shadow: 0 28px 90px rgb(var(--brand) / 0.12);
+}
+
 .landing-matrix-on {
   animation: landing-matrix-pulse 4.8s ease-in-out infinite;
 }
@@ -237,6 +262,7 @@
   .landing .panel,
   .landing-btn,
   .landing-hero svg,
+  .landing-hero,
   .landing-link svg,
   .landing .icon-chip {
     transition: none;
@@ -245,6 +271,7 @@
   .landing .panel:hover,
   .landing-btn:hover,
   .landing-hero:hover svg,
+  .landing-hero:hover,
   .landing .group:hover .icon-chip {
     transform: none;
     box-shadow: none;

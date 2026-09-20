@@ -190,23 +190,28 @@ export default function Landing() {
               Console
             </a>
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <ThemeToggle className="landing-btn landing-btn-ghost" />
             <Link
               to="/app/command-center"
-              className="landing-btn landing-btn-fill inline-flex h-9 items-center rounded-md bg-brand-fill px-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white"
+              className="landing-btn landing-btn-fill inline-flex h-9 shrink-0 items-center rounded-md bg-brand-fill px-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white sm:px-3.5"
             >
-              Open command center
+              <span className="hidden sm:inline">Open command center</span>
+              <ArrowRight className="h-4 w-4 sm:hidden" aria-label="Open command center" />
             </Link>
           </div>
         </div>
       </header>
 
       <main>
-        <section className="mx-auto grid max-w-6xl gap-12 px-6 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-16">
+        <section className="landing-hero-section mx-auto grid max-w-6xl gap-10 px-6 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-14">
           <div>
+            <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-brand/20 bg-brand-soft/60 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
+              Local optimization runtime online
+            </div>
             <p className="label-caps">Sovereign GPU-accelerated mathematical optimization</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink lg:text-[40px] lg:leading-none">
+            <h1 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-ink lg:text-[48px] lg:leading-[1.02]">
               <span className="sr-only">{APP_NAME}</span>
               <span aria-hidden="true">
                 <FlipText duration={2.6} delay={0.08}>
@@ -247,12 +252,24 @@ export default function Landing() {
               ))}
             </dl>
           </div>
-          <div className="landing-hero panel overflow-hidden">
+          <div className="landing-hero panel overflow-hidden border-brand/15 bg-canvas/90 shadow-[0_24px_80px_rgb(var(--ink)/0.08)]">
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-              <p className="label-caps">Constraint matrix</p>
+              <p className="label-caps flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> Constraint matrix</p>
               <p className="label-caps">Certified plan</p>
             </div>
             <MatrixHero />
+            <div className="grid grid-cols-3 border-t border-line bg-surface/70">
+              {[
+                ['MODE', 'AIR-GAPPED'],
+                ['DEVICE', 'CUDA / CPU'],
+                ['STATUS', 'KKT READY'],
+              ].map(([label, value]) => (
+                <div key={label} className="border-r border-line px-3 py-3 last:border-r-0">
+                  <p className="font-mono text-[9px] tracking-[0.16em] text-ink-muted">{label}</p>
+                  <p className="mt-1 text-[10px] font-semibold tracking-[0.08em] text-brand">{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
