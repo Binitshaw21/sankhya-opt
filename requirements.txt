@@ -1,0 +1,7 @@
+torch
+numpy
+rich
+fastapi
+uvicorn
+pydantic
+scipy
