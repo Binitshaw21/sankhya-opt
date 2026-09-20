@@ -3,8 +3,10 @@ import {
   Cpu,
   FileCheck2,
   GitBranch,
+  Gauge,
   LayoutDashboard,
   Network,
+  LogOut,
   X,
 } from 'lucide-react'
 import { SystemStatus } from '@/components/layout/SystemStatus'
@@ -12,6 +14,7 @@ import { SankhyaMark } from '@/components/shared/Mark'
 import { useSolverStore } from '@/context/SolverContext'
 import { APP_MARK, APP_NAME, APP_VERSION } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/context/AuthContext'
 
 const NAV = [
   { to: '/app/command-center', index: '01', label: 'Command Center', icon: LayoutDashboard },
@@ -19,6 +22,7 @@ const NAV = [
   { to: '/app/milp-search', index: '03', label: 'MILP Search', icon: GitBranch },
   { to: '/app/optnet-lab', index: '04', label: 'OptNet AI Lab', icon: Network },
   { to: '/app/kkt-certification', index: '05', label: 'KKT Certification', icon: FileCheck2 },
+  { to: '/app/enterprise-insights', index: '06', label: 'Enterprise Insights', icon: Gauge },
 ]
 
 export function Sidebar({
@@ -29,6 +33,7 @@ export function Sidebar({
   onClose: () => void
 }) {
   const { setArchitectureOpen } = useSolverStore()
+  const { user, signOut } = useAuth()
 
   return (
     <>
@@ -105,6 +110,7 @@ export function Sidebar({
         </nav>
 
         <div className="border-t border-line px-4 py-4">
+          {user ? <div className="mb-3 flex items-center justify-between gap-2"><div className="min-w-0"><p className="truncate text-xs font-semibold text-ink">{user.username}</p><p className="truncate text-[10px] text-ink-muted">{user.role}</p></div><button type="button" onClick={signOut} className="rounded p-1 text-ink-muted hover:bg-surface hover:text-ink" aria-label="Sign out"><LogOut className="h-3.5 w-3.5" /></button></div> : null}
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">{APP_MARK}</p>
           <p className="mt-1 text-xs font-semibold text-ink">{APP_NAME}</p>
           <p className="font-mono text-[11px] text-ink-muted">v{APP_VERSION}</p>

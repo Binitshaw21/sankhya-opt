@@ -46,6 +46,27 @@ export function downloadAuditJson(record: AuditRecord): void {
   URL.revokeObjectURL(url)
 }
 
+export async function downloadSignedManifest(record: AuditRecord): Promise<void> {
+  const canonical = JSON.stringify(record)
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(canonical))
+  const digestHex = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')
+  const manifest = {
+    manifestType: 'C2PA-SIMULATED-LOCAL',
+    digestAlgorithm: 'BLAKE3-SIMULATED-SHA256-FALLBACK',
+    inputDigest: digestHex,
+    signatureAlgorithm: 'Ed25519-SIMULATED-LOCAL-KEY',
+    signature: `local:${digestHex.slice(0, 32)}`,
+    record,
+  }
+  const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `sankhya-opt-c2pa-manifest-${record.runId}.json`
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 export function createRunId(timestamp: string): string {
   const token = timestamp.replaceAll('-', '').replaceAll(':', '').replaceAll('.', '').replaceAll('T', '').replaceAll('Z', '').slice(0, 14)
   return `SO-${token}`

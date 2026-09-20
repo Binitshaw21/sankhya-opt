@@ -13,7 +13,7 @@ from rich.panel import Panel
 # Import all SOTA modules
 from api.slm_translator import LocalRefinerySLM
 from core.mpir_engine import TensorCoreMPIREngine
-from core.milp_engine import SANKHYAMILPEngine
+from core.milp_engine import SANKHYAMINLPEngine
 from core.verifier import KKTVerifier
 
 console = Console()
@@ -59,7 +59,7 @@ def run_sota_pipeline():
     mpir_solver = TensorCoreMPIREngine(outer_max_iter=10, inner_pdlp_iter=400, tolerance=1e-6)
     
     console.print("[bold yellow][Phase 3/4][/bold yellow] Activating ML4CO GNN-Guided Branch-and-Bound...")
-    milp_engine = SANKHYAMILPEngine(mpir_solver)
+    milp_engine = SANKHYAMINLPEngine(mpir_solver)
     
     # Execute MILP
     milp_res = milp_engine.solve({

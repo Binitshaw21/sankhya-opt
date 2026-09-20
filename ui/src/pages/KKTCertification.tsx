@@ -1,4 +1,4 @@
-import { KKTCertificationView } from '@/components/kkt/KKTCertification'
+import { KktAuditReport } from '@/components/dashboard/KktAuditReport'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useKktVerification } from '@/hooks/useKktVerification'
 
@@ -14,5 +14,5 @@ export default function KKTCertification() {
     )
   }
 
-  return <KKTCertificationView kkt={kktVerification} audit={auditData} />
+  return <KktAuditReport kkt={kktVerification} audit={auditData} />
 }

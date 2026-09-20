@@ -1,4 +1,4 @@
-import { MILPSearchTree } from '@/components/milp/MILPSearchTree'
+import { GnnBranchTree } from '@/components/dashboard/GnnBranchTree'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useMilpTree } from '@/hooks/useMilpTree'
 
@@ -14,5 +14,5 @@ export default function MILPSearch() {
     )
   }
 
-  return <MILPSearchTree tree={milpTree} />
+  return <GnnBranchTree tree={milpTree} />
 }

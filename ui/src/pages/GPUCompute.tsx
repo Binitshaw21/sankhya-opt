@@ -1,4 +1,4 @@
-import { GPUTelemetry } from '@/components/gpu-telemetry/GPUTelemetry'
+import { MpirTelemetry } from '@/components/dashboard/MpirTelemetry'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { useGpuTelemetry } from '@/hooks/useGpuTelemetry'
 
@@ -14,5 +14,5 @@ export default function GPUCompute() {
     )
   }
 
-  return <GPUTelemetry telemetry={gpuTelemetry} />
+  return <MpirTelemetry telemetry={gpuTelemetry} />
 }

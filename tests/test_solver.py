@@ -1,4 +1,5 @@
 from api.slm_translator import LocalRefinerySLM
+from run_sankhya import SANKHYAMINLPEngine
 
 
 def test_translator_extracts_refinery_constraints():
@@ -13,3 +14,7 @@ def test_translator_extracts_refinery_constraints():
 		'min_octane_target': 46000.0,
 		'max_reforming_capacity': 500.0,
 	}
+
+
+def test_cli_solver_class_import_is_available():
+	assert SANKHYAMINLPEngine.__name__ == 'SANKHYAMINLPEngine'

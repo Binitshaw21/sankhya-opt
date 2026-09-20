@@ -24,6 +24,10 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
     title: 'KKT Certification',
     description: 'Mathematical verification of the returned plan',
   },
+  '/app/enterprise-insights': {
+    title: 'Enterprise Insights',
+    description: 'Feasible geometry, dual sensitivity, and benchmark review',
+  },
 }
 
 export function AppShell() {
