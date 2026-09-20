@@ -1,10 +1,17 @@
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from api.slm_translator import LocalRefinerySLM
 from core.mpir_engine import TensorCoreMPIREngine
 
 app = FastAPI()
+
+WEB_ROOT = Path(__file__).resolve().parent.parent / "ui" / "dist"
+ASSET_ROOT = WEB_ROOT / "assets"
 
 app.add_middleware(
     CORSMiddleware,
@@ -52,3 +59,18 @@ def translate_and_solve(request: PromptRequest):
         "nlp_extraction": translation["extracted_parameters"],
         "solver_metrics": solve_result
     }
+
+
+if ASSET_ROOT.is_dir():
+    app.mount("/assets", StaticFiles(directory=ASSET_ROOT), name="assets")
+
+
+@app.get("/{path:path}")
+def serve_spa(path: str):
+    """Serve the built React app and support client-side route refreshes."""
+    requested_file = WEB_ROOT / path
+    if path and requested_file.is_file() and WEB_ROOT in requested_file.parents:
+        return FileResponse(requested_file)
+    if (WEB_ROOT / "index.html").is_file():
+        return FileResponse(WEB_ROOT / "index.html")
+    return {"detail": "Frontend build not found. Run the UI build first."}

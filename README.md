@@ -110,6 +110,17 @@ npm run build
 
 From the repository root, the equivalent development command is `npm run dev:frontend`.
 
+### 4. Deploy the combined app to Render
+
+The repository includes `render.yaml` for a single free Render Web Service. Render builds the React app into `ui/dist`, then FastAPI serves both the SPA and `/api/*` routes from one HTTPS origin.
+
+1. Create a new **Blueprint** in Render and select this GitHub repository.
+2. Keep the service name and free plan from `render.yaml`.
+3. Deploy without adding API keys or external service credentials.
+4. Open the generated `onrender.com` URL. The frontend uses same-origin API calls in production.
+
+Free Render services sleep when idle, so the first request after inactivity can be slow. The service is CPU-only; CUDA/Tensor Core execution is available only in a local GPU environment.
+
 ## Tests and checks
 
 ```bash

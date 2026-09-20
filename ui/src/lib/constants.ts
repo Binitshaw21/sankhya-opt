@@ -6,7 +6,7 @@ export const DEFAULT_PROMPT =
   'Keep sulfur below 18.5, maintain octane above 46000, and limit reforming capacity to 500 barrels/day.'
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || 'http://127.0.0.1:8000'
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || ''
 
 export const TRANSLATE_AND_SOLVE_PATH = '/api/slm/translate-and-solve'
 export const HEALTH_PATH = '/openapi.json'
