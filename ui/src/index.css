@@ -3,7 +3,350 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-slate-950 text-slate-200;
+  :root {
+    --canvas: 255 255 255;
+    --surface: 248 250 252;
+    --surface-2: 245 247 250;
+    --surface-3: 241 245 249;
+    --ink: 15 23 42;
+    --ink-secondary: 71 85 105;
+    --ink-muted: 100 116 139;
+    --line: 226 232 240;
+    --brand: 22 101 52;
+    --brand-strong: 20 83 45;
+    --brand-soft: 220 252 231;
+    --brand-mid: 21 128 61;
+    --brand-fill: 22 101 52;
+    --warn: 234 88 12;
+    --warn-soft: 255 247 237;
+    --danger: 185 28 28;
+    --danger-soft: 254 242 242;
+    --info: 29 78 216;
+    --info-soft: 239 246 255;
+    --log: 15 23 42;
+    --log-fg: 226 232 240;
+    --shadow-panel: 0 1px 0 rgba(15, 23, 42, 0.03);
+
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 143 64% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72% 41%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 143 64% 24%;
+    --radius: 0.5rem;
+    color-scheme: light;
   }
+
+  .dark {
+    --canvas: 0 0 0;
+    --surface: 10 10 10;
+    --surface-2: 14 14 14;
+    --surface-3: 24 24 24;
+    --ink: 241 245 249;
+    --ink-secondary: 203 213 225;
+    --ink-muted: 148 163 184;
+    --line: 51 65 85;
+    --brand: 74 222 128;
+    --brand-strong: 134 239 172;
+    --brand-soft: 20 83 45;
+    --brand-mid: 34 197 94;
+    --brand-fill: 22 101 52;
+    --warn: 251 146 60;
+    --warn-soft: 67 20 7;
+    --danger: 248 113 113;
+    --danger-soft: 69 10 10;
+    --info: 96 165 250;
+    --info-soft: 23 37 84;
+    --log: 0 0 0;
+    --log-fg: 226 232 240;
+    --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    --background: 0 0% 0%;
+    --foreground: 210 40% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 69% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 22%;
+    --input: 217 33% 22%;
+    --ring: 142 69% 45%;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'ss01' on, 'cv11' on;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
+  }
+}
+
+@layer utilities {
+  .label-caps {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-muted;
+  }
+
+  .mono-num {
+    @apply font-mono tabular-nums tracking-tight;
+  }
+
+  .panel {
+    @apply rounded-md border border-line bg-canvas shadow-panel;
+  }
+}
+
+/* Landing-only hover and idle motion. Console panels stay static. */
+.landing .panel {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.landing .panel:hover {
+  transform: translateY(-3px);
+  border-color: rgb(var(--brand) / 0.32);
+  box-shadow:
+    0 18px 40px rgb(var(--ink) / 0.16),
+    0 6px 14px rgb(var(--ink) / 0.08);
+}
+
+.dark .landing .panel:hover {
+  box-shadow:
+    0 20px 48px rgb(255 255 255 / 0.1),
+    0 10px 28px rgb(var(--brand) / 0.28);
+}
+
+.landing-btn {
+  transition:
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.landing-btn:hover {
+  transform: translateY(-1px);
+}
+
+.landing-btn:active {
+  transform: translateY(0);
+}
+
+.landing-btn-fill:hover {
+  background-color: rgb(var(--brand-strong));
+  box-shadow: 0 8px 18px rgb(var(--brand-fill) / 0.28);
+}
+
+.landing-btn-ghost:hover {
+  background-color: rgb(var(--surface));
+  border-color: rgb(var(--ink) / 0.16);
+}
+
+.landing-link {
+  transition: color 180ms ease, gap 180ms ease;
+}
+
+.landing-link svg {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-link:hover svg {
+  transform: translateX(3px);
+}
+
+.landing-hero svg {
+  transform-origin: center;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-hero:hover svg {
+  transform: scale(1.02);
+}
+
+.landing-matrix-on {
+  animation: landing-matrix-pulse 4.8s ease-in-out infinite;
+}
+
+@keyframes landing-matrix-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.landing .icon-chip {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease;
+}
+
+.landing .group:hover .icon-chip {
+  transform: translateY(-1px);
+  border-color: rgb(var(--brand) / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing .panel,
+  .landing-btn,
+  .landing-hero svg,
+  .landing-link svg,
+  .landing .icon-chip {
+    transition: none;
+  }
+
+  .landing .panel:hover,
+  .landing-btn:hover,
+  .landing-hero:hover svg,
+  .landing .group:hover .icon-chip {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .landing-matrix-on {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+/* FlipText — VengeanceUI 3D character flip */
+.flip-char {
+  color: inherit;
+  -webkit-text-fill-color: transparent;
+  height: 1.2em;
+  line-height: 1.2em;
+  vertical-align: middle;
+  animation: flip var(--flip-duration, 2.2s) var(--flip-delay, 0s) var(--flip-iteration, infinite)
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-char::before,
+.flip-char::after {
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  content: attr(data-char);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  animation: fade var(--flip-duration, 2.2s) var(--flip-delay, 0s) var(--flip-iteration, infinite)
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-char::after {
+  transform: translate(-50%, -50%) translateZ(0.6em);
+}
+
+.flip-char::before {
+  transform: translate(-50%, -50%) rotateX(-90deg) translateZ(0.6em);
+  opacity: 0;
+  --opacity: 1;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  25%,
+  100% {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  30%,
+  100% {
+    opacity: var(--opacity, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-char,
+  .flip-char::before,
+  .flip-char::after {
+    animation: none !important;
+  }
+
+  .flip-char {
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .flip-char::before,
+  .flip-char::after {
+    display: none;
+  }
+}
+
+.react-flow {
+  background-color: rgb(var(--canvas));
+}
+
+.react-flow__controls-button {
+  @apply border-line bg-canvas fill-ink text-ink;
+}
+
+.react-flow__controls-button:hover {
+  @apply bg-surface;
+}
+
+.react-flow__attribution {
+  background: transparent !important;
+  @apply text-ink-muted;
 }
