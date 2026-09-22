@@ -15,7 +15,7 @@ export function SystemStatus({ compact = false }: { compact?: boolean }) {
     ? device.toUpperCase().includes('CUDA')
       ? 'CUDA'
       : device.toUpperCase()
-    : 'NOT REPORTED'
+    : 'AWAITING SOLVE'
 
   if (compact) {
     return (

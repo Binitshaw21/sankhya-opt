@@ -62,6 +62,7 @@ const SolverContext = createContext<SolverStore | null>(null)
 const INITIAL_HEALTH: EngineHealth = {
   api: 'UNKNOWN',
   engine: 'UNKNOWN',
+  device: null,
   lastCheckedAt: null,
   endpoint: '',
 }

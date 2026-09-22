@@ -112,14 +112,14 @@ From the repository root, the equivalent development command is `npm run dev:fro
 
 ### 4. Deploy the combined app to Render
 
-The repository includes `render.yaml` for a single free Render Web Service. Render builds the React app into `ui/dist`, then FastAPI serves both the SPA and `/api/*` routes from one HTTPS origin.
+The repository includes `render.yaml` and `Dockerfile` for a single free Render Web Service. The image builds the React app into `ui/dist`, then FastAPI serves both the SPA and `/api/*` routes from one HTTPS origin.
 
 1. Create a new **Blueprint** in Render and select this GitHub repository.
 2. Keep the service name and free plan from `render.yaml`.
 3. Deploy without adding API keys or external service credentials.
 4. Open the generated `onrender.com` URL. The frontend uses same-origin API calls in production.
 
-Free Render services sleep when idle, so the first request after inactivity can be slow. The service is CPU-only; CUDA/Tensor Core execution is available only in a local GPU environment.
+The configured health check is `/api/system/status`. To reduce free-tier cold starts, create an HTTP(s) monitor in UptimeRobot for `https://<your-service>.onrender.com/api/system/status` and set it to run every 5 minutes. This external monitor must be configured in UptimeRobot; it cannot be provisioned by `render.yaml`. The service is CPU-only; CUDA/Tensor Core execution is available only in a local GPU environment.
 
 ## Tests and checks
 

@@ -193,7 +193,7 @@ export default function Landing() {
           <div className="flex min-w-0 items-center gap-2">
             <ThemeToggle className="landing-btn landing-btn-ghost" />
             <Link
-              to="/app/command-center"
+              to="/login"
               className="landing-btn landing-btn-fill inline-flex h-9 shrink-0 items-center rounded-md bg-brand-fill px-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white sm:px-3.5"
             >
               <span className="hidden sm:inline">Open command center</span>
@@ -225,7 +225,7 @@ export default function Landing() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/app/command-center"
+                to="/login"
                 className="landing-btn landing-btn-fill inline-flex h-11 items-center rounded-md bg-brand-fill px-5 text-sm font-semibold tracking-[0.08em] text-white"
               >
                 Open command center
@@ -283,7 +283,7 @@ export default function Landing() {
                 </p>
               </div>
               <Link
-                to="/app/command-center"
+                to="/login"
                 className="landing-link inline-flex shrink-0 items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand"
               >
                 Run in command center

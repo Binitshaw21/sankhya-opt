@@ -56,6 +56,7 @@ export interface ApiError {
 export interface EngineHealth {
   api: ConnectionStatus
   engine: ConnectionStatus
+  device: string | null
   lastCheckedAt: string | null
   endpoint: string
   detail?: string

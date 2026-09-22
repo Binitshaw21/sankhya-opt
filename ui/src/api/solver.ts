@@ -83,14 +83,17 @@ export async function checkEngineHealth(signal?: AbortSignal): Promise<EngineHea
       return {
         api: 'DISCONNECTED',
         engine: 'DISCONNECTED',
+        device: null,
         lastCheckedAt: timestamp,
         endpoint,
         detail: `HTTP ${response.status}`,
       }
     }
+    const payload = (await response.json()) as { device?: unknown }
     return {
       api: 'CONNECTED',
       engine: 'CONNECTED',
+      device: typeof payload.device === 'string' ? payload.device : null,
       lastCheckedAt: timestamp,
       endpoint,
     }
@@ -98,6 +101,7 @@ export async function checkEngineHealth(signal?: AbortSignal): Promise<EngineHea
     return {
       api: 'DISCONNECTED',
       engine: 'DISCONNECTED',
+      device: null,
       lastCheckedAt: timestamp,
       endpoint,
       detail: cause instanceof Error ? cause.message : 'CONNECTION_REFUSED',
